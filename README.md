@@ -49,46 +49,105 @@ will instantiate an instance that maps to the localStorage object and if ignored
 or set to ```false``` it will instantiate an instance mapping to the sessionStorage
 object. 
 
-### .find(key)
-
-This returns the record identified by ```key```. It returns a ```Record``` Object, which 
-will be shown a bit later. Analogous to ```Storage.getItem()```. 
-
-### .findAll()
-
-Returns all records in storage as an array of ```Record``` objects.
-
-### .findAt(index)
-
-Returns the record at ```index``` in storage. Analogous to ```Storage.key()```. 
-
-### .indexOf(key)
-
-Returns the index of a key in storage. 
-
 ### .set(key, value)
 
 Sets a key to a given value in storage. Analogous to ```Storage.setItem()```. 
+For example: 
+
+```js
+$db.set('user',{name:'James Bond', email:'bond007@live.com', bio:'I spy for a living.'});
+
+$db.set('visit_count', 4);
+
+$db.set('browser','mozilla');
+```
+
+### .find(key)
+
+This returns the record identified by ```key```. It returns a ```Record``` Object, which 
+will be shown a bit later. Analogous to ```Storage.getItem()```. For example:
+
+```js
+var user = $db.find('user'); // Record {name: "user", data: Object, $db: window.Base, toString: function, save: function…}
+
+console.log(user.data.name): // James Bond
+```
+
+### .findAll()
+
+Returns all records in storage as an array of ```Record``` objects. For example:
+
+```js
+console.log($db.findAll()); // [Record, Record]
+```
+
+### .findAt(index,[get_value])
+
+Returns the record at ```index``` in storage. Analogous to ```Storage.key()```.
+
+Has an optional trailing parameter which if set to true will make the function return
+the actual value of the key. 
+For example:
+
+```js
+console.log($db.findAt(1)); // visit_count
+
+console.log($db.findAt(1,true)); // 4
+```
+
+### .indexOf(key)
+
+Returns the index of a key in storage. For example: 
+
+```js
+console.log($db.indexOf('visit_count')); // 1
+```
 
 ### .delete(key)
 
-Removes a key from storage. Analogous to ```Storage.removeItem```. 
+Removes a key from storage. Analogous to ```Storage.removeItem```. For example:
+
+```js
+$db.delete('user');
+
+console.log($db.find('user')); // null
+```
 
 ### .deleteAll()
 
-Removes all keys from the storage. Analogous to ```Storage.clear()```. 
+Removes all keys from the storage. Analogous to ```Storage.clear()```. For example:
+
+```js
+$db.deleteAll();
+
+console.log($db.findAll()); // []
+```
 
 ### .deleteAt(index)
 
-Removes a key at ```index``` in storage. 
+Removes a key at ```index``` in storage. For example:
+
+```js
+$db.deleteAt(0);
+
+console.log($db.findAt(0)); // null
+```
 
 ### .log(key)
 
-Logs the value of ```key``` to the console. 
+Logs the value of ```key``` to the console. For example:
+
+```js
+$db.log('user'); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."} 
+```
 
 ### .mode
 
-The current operation mode, i.e. whether data is being stored in localStorage or sessionStorage. 
+The current operation mode, i.e. whether data is being stored in localStorage or sessionStorage. For example:
+
+```js
+console.log($db.mode); // sessionStorage
+```
 
 
 ### Record 
@@ -99,19 +158,51 @@ These objects have the following API
 
 #### .toString()
 
-Produces a string value of the ```data```. 
+Produces a string value of the ```data```. For example:
+
+```js
+var user = $db.find('user');
+
+console.log(user.toString()); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."}
+``` 
 
 #### .save()
 
-Saves and updates the record in storage. 
+Saves and updates the record in storage. For example: 
+
+```js
+var user = $db.find('user');
+
+console.log(user.toString()); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."}
+
+user.data.name = "Jason Statham";
+user.data.email = "js@gunsblazing.com";
+user.data.bio = "I got moves.";
+
+user.save();
+
+console.log($db.find('user').toString()); // {"name":"Jason Statham","email":"s@gunsblazing.com","bio":"I got moves."}
+
+``` 
 
 #### .delete()
 
-Deletes or removes the record from storage.
+Deletes or removes the record from storage. For example: 
+
+```js
+var user = $db.find('user');
+
+console.log(user.toString()); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."}
+
+user.delete();
+
+console.log($db.find('user').toString()); // null
+
+``` 
 
 #### .data
 
-The value of the record. 
+The value of the record. Usage is shown in the examples above.
 
 #### .name
 
@@ -122,4 +213,5 @@ The name of the record. Corresponds to the key of the record.
 A reference to the BaseJS object that created it.
 
 Copyright 2014 Schambach Milimu <msshambach@hotmail.com>
+
 _Refer to LICENSE_

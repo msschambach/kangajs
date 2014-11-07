@@ -46,7 +46,7 @@
   Record.prototype.constructor = Record;
 
   // Instantiate library
-  window.Db = function(mode){
+  window.Base = function(mode){
     // Instantiates $storage to localStorage if mode is true 
     // And to sessionStorage if mode is false
     if(mode){
@@ -59,7 +59,7 @@
   };
 
   // Defind methods and properties of library
-  window.Db.prototype = {
+  window.Base.prototype = {
 
     // Gets the size of Storage
     length: function(){
@@ -77,14 +77,14 @@
     },
 
     // Fetches a record stored in Storage by its name
-    find: function(record){
-      var value = this.$storage.getItem(record);
+    find: function(key){
+      var value = this.$storage.getItem(key);
       if(value === null || value === undefined || value === NaN){
         return null;
       }else{
         return new Record({
           db: this,
-          name:record,
+          name:key,
           data:this.isJSON(value) || value
         });
       }
@@ -109,13 +109,13 @@
       return this.$storage.key(index);
     },
 
-    // Gets the key of a record 
-    indexOf: function(record){
+    // Gets the index of a record 
+    indexOf: function(key){
       // record has to be a string
-      if(typeof record === "string" || String.prototype.isPrototypeOf(record)){
+      if(typeof key === "string" || String.prototype.isPrototypeOf(key)){
           var counter = 0;
           for (var x in this.$storage){
-            if(x === record.toString()){
+            if(x === key.toString()){
               return counter;
             }else{
               counter++;
@@ -128,16 +128,16 @@
     },
 
     // Inserts a record into Storage
-    set: function(record, value){
+    set: function(key, value){
       if(value instanceof Object && typeof value !== "string"){
         value = JSON.stringify(value);
       }
-      this.$storage.setItem(record, value);
+      this.$storage.setItem(key, value);
     },
 
     // Deletes a record from Storage by its name
-    delete: function(record){
-      this.$storage.removeItem(record);
+    delete: function(key){
+      this.$storage.removeItem(key);
     },
 
     // Clears all records in Storage
@@ -146,17 +146,17 @@
     },
 
     // Deletes a record from Storage by its index
-    deleteAt:function(key){
-      this.$storage.removeItem(this.$storage.key(key));
+    deleteAt:function(index){
+      this.$storage.removeItem(this.$storage.key(index));
     },
 
     // Logs a record to the console for debugging purposes
-    log: function(record){
-      console.log(this.find(record).toString());
+    log: function(key){
+      console.log(this.find(key).toString());
     }
 
   };
 
-  window.Db.prototype.constructor = window.Db;
+  window.Base.prototype.constructor = window.Base;
 
 })();

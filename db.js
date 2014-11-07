@@ -98,7 +98,12 @@
     },
 
     // Fetches a record stored in Storage by its index
-    findAt: function(index){
+    findAt: function(index, get_value){
+      if(get_value){
+        // Returns the actual record instead of just the key
+        return this.find(this.$storage.key(index));
+      }
+      // Returns the key 
       return this.$storage.key(index);
     },
 
@@ -115,7 +120,7 @@
             }
           }
       }else{
-        throw Error("String expected!");
+        throw Error("String expected as argument!");
         return;
       }
     },

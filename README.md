@@ -40,7 +40,7 @@ To use the library is simple, just initiate a new BaseJS object and you're good 
 
 A new BaseJS instance can be instantiated as shown below:
 
-```
+```js
 $db = new Base(); 
 ```
 

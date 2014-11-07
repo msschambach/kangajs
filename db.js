@@ -3,7 +3,7 @@
   TODO: 
   1. Find a better way of representing errors
   2. Add single user authentication
-
+  3. Find away to implement protection of properties of objects
 
   */
 
@@ -100,6 +100,24 @@
     // Fetches a record stored in Storage by its index
     findAt: function(index){
       return this.$storage.key(index);
+    },
+
+    // Gets the key of a record 
+    indexOf: function(record){
+      // record has to be a string
+      if(typeof record === "string" || String.prototype.isPrototypeOf(record)){
+          var counter = 0;
+          for (var x in this.$storage){
+            if(x === record.toString()){
+              return counter;
+            }else{
+              counter++;
+            }
+          }
+      }else{
+        throw Error("String expected!");
+        return;
+      }
     },
 
     // Inserts a record into Storage

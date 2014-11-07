@@ -1,6 +1,10 @@
 (function(){
   /* 
-  TODO: find a better way of representing errors
+  TODO: 
+  1. Find a better way of representing errors
+  2. Add single user authentication
+
+
   */
 
   if((!window.localStorage) || (!window.sessionStorage)){
@@ -45,8 +49,10 @@
     // And to sessionStorage if mode is false
     if(mode){
       this.$storage = window.localStorage;
+      this.mode = "localStorage";
     }else{
       this.$storage = window.sessionStorage;
+      this.mode = "sessionStorage";
     }
   };
 

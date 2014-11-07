@@ -122,3 +122,4 @@ The name of the record. Corresponds to the key of the record.
 A reference to the BaseJS object that created it.
 
 Copyright 2014 Schambach Milimu <msshambach@hotmail.com>
+_Refer to LICENSE_

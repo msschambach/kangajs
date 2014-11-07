@@ -43,6 +43,8 @@
     }
   };
 
+  Record.prototype.constructor = Record;
+
   // Instantiate library
   window.Db = function(mode){
     // Instantiates $storage to localStorage if mode is true 
@@ -154,5 +156,7 @@
     }
 
   };
+
+  window.Db.prototype.constructor = window.Db;
 
 })();

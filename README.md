@@ -16,13 +16,13 @@ Just download from this page or clone this repository.
 
 After downloading you can include it in your page as shown below: 
 
-```
+```js
 <script type="text/javascript" src="base.js"></script>
 ```
 
 To use the library is simple, just initiate a new BaseJS object and you're good to go.
 
-```
+```js
 <script type="text/javascript">
   $db = new Base(); // Will use sessionStorage
 

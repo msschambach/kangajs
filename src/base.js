@@ -211,7 +211,8 @@
 
   };
 
+  Base.prototype.constructor = Base;
   window.Base = Base;
-  window.Base.prototype.constructor = Base;
+  
 
 })();

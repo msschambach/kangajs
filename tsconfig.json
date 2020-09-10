@@ -1,0 +1,21 @@
+{
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "removeComments": true,
+    "target": "ES2017",
+    "lib": ["DOM", "ESNext"],
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "allowJs": true
+  }
+}

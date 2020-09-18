@@ -1,4 +1,2 @@
-import BrowserStore from './BrowserStore';
-import Record from './Record';
-
-export default { BrowserStore, Record };
+export  { default as BrowserStore } from './BrowserStore';
+export  { default as Record } from './Record';

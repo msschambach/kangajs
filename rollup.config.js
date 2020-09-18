@@ -1,17 +1,26 @@
 import path from 'path';
-import RollupTypescriptPlugin from '@rollup/plugin-typescript';
+import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 
 export default {
   input: path.join(__dirname, 'src/index.ts'),
-  output:{
-    file: path.join(__dirname, 'dist/kanga.min.js'),
-    format: 'cjs',
-    name: 'KangaJS',
-    sourcemap: true
-  },
+  output: [
+    {
+      file: path.join(__dirname, 'dist/kanga.js'),
+      format: 'cjs',
+      name: 'KangaJS'
+    },
+    {
+      file: path.join(__dirname, 'dist/kanga.min.js'),
+      format: 'iife',
+      name: 'KangaJS',
+      sourcemap: true,
+    },
+  ],
   plugins: [
-    RollupTypescriptPlugin(),
+    commonjs(),
+    typescript(),
     terser({
       compress: {
         pure_getters: true,
@@ -19,6 +28,6 @@ export default {
         unsafe_comps: true,
         warnings: true,
       },
-    }),
+    })
   ]
 }

@@ -1,1 +1,1 @@
-module.exports = require('./Store').default;;
+module.exports = require('./BrowserStore').default;;

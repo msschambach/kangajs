@@ -2,12 +2,12 @@ import Record from './Record';
 
 type StorageMode = 'localStorage' | 'sessionStorage';
 
-class Store {
+class BrowserStore {
 
   mode: StorageMode;
 
   private $storage: Storage;
-  
+
 
   constructor(shouldUseLocalStorage: boolean = true){
     if (shouldUseLocalStorage) {
@@ -107,4 +107,4 @@ class Store {
   }
 }
 
-export default Store;
+export default BrowserStore;

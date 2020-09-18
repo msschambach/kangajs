@@ -8,7 +8,6 @@ class BrowserStore {
 
   private $storage: Storage;
 
-
   constructor(shouldUseLocalStorage: boolean = true){
     if (shouldUseLocalStorage) {
       this.$storage = window.localStorage;

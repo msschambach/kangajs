@@ -1,1 +1,4 @@
-module.exports = require('./BrowserStore').default;;
+import BrowserStore from './BrowserStore';
+import Record from './Record';
+
+export default { BrowserStore, Record };

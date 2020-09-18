@@ -1,57 +1,15 @@
-interface BaseJSInstance {
-  set: (key: string, data: any) => void,
-  delete: (key: string) => void
-}
+import Record from './Record';
 
-interface LocalStorageRecordProperties<T> {
-  name: string,
-  data: T,
-  db: BaseJSInstance,
-}
+type StorageMode = 'localStorage' | 'sessionStorage';
 
-class LocalStorageRecord<T> {
+class Store {
 
-  name: string;
-
-  data: T;
-
-  private $db: BaseJSInstance;
-
-  constructor(properties: LocalStorageRecordProperties<T>){
-    this.name = properties.name;
-    this.data = properties.data;
-    this.$db = properties.db;
-  }
-
-  toString(){
-    // If it's a string just return the string value, otherwise JSON.stringify
-    if (String.prototype.isPrototypeOf(this.data) || typeof this.data === "string") {
-      return this.data;
-    } else {
-      return JSON.stringify(this.data);
-    }
-  }
-
-  save() {
-    this.$db.set(this.name, this.data);
-  }
-
-  delete() {
-    this.$db.delete(this.name);
-  }
-}
-
-
-type BaseJSMode = "localStorage" | "sessionStorage";
-
-export default class Base {
-
-  mode: BaseJSMode;
+  mode: StorageMode;
 
   private $storage: Storage;
   
 
-  constructor(shouldUseLocalStorage: boolean = false){
+  constructor(shouldUseLocalStorage: boolean = true){
     if (shouldUseLocalStorage) {
       this.$storage = window.localStorage;
       this.mode = "localStorage";
@@ -75,12 +33,12 @@ export default class Base {
     }
   }
 
-  find<R>(key: string): LocalStorageRecord<R> | null {
+  find<R>(key: string): Record<R> | null {
     const value = this.$storage.getItem(key);
 
     if(value){
-      return new LocalStorageRecord<R>({
-        db: this,
+      return new Record<R>({
+        storage: this.$storage,
         name: key,
         data: this.parse(value) || value
       })
@@ -89,7 +47,7 @@ export default class Base {
     return null;
   }
 
-  findAll(): LocalStorageRecord<any>[] {
+  findAll(): Record<any>[] {
     const all = [];
 
     for (let x in this.$storage) {
@@ -102,7 +60,7 @@ export default class Base {
     return all;
   }
 
-  findAt<R>(index: number, returnAsRecord: boolean = true): LocalStorageRecord<R> | string | null {
+  findAt<R>(index: number, returnAsRecord: boolean = true): Record<R> | string | null {
     if (returnAsRecord) {
       return this.find(this.$storage.key(index) || '');
     }
@@ -148,3 +106,5 @@ export default class Base {
     console.log(this.find(key)?.toString());
   }
 }
+
+export default Store;

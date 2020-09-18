@@ -9,12 +9,11 @@ export default {
     {
       file: path.join(__dirname, 'dist/kanga.js'),
       format: 'cjs',
-      name: 'KangaJS'
     },
     {
       file: path.join(__dirname, 'dist/kanga.min.js'),
       format: 'iife',
-      name: 'KangaJS',
+      name: 'Kanga',
       sourcemap: true,
     },
   ],

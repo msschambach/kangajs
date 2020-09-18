@@ -7,13 +7,13 @@ module.exports = {
   devtool: 'source-map',
   target: 'web',
   entry: {
-    base: path.join(__dirname, 'src', 'index.ts')
+    kanga: path.join(__dirname, 'src', 'index.ts')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].min.js',
     libraryTarget: 'var',
-    library: 'Base'
+    library: 'Kanga'
   },
   resolve: {
     modules: [

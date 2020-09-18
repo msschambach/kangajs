@@ -1,7 +1,7 @@
 {
-  "name": "basejs",
+  "name": "@msschambach/kangajs",
   "version": "1.0.0",
-  "description": "A light wrapper for the HTML5 DOM Storage.",
+  "description": "A light wrapper for the Web Storage API.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/msschambach/BaseJS.git"
+    "url": "git+https://github.com/msschambach/kangajs.git"
   },
-  "author": "",
+  "author": "Schambach Milimu<msschambach@hotmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/msschambach/BaseJS/issues"
+    "url": "https://github.com/msschambach/kangajs/issues"
   },
-  "homepage": "https://github.com/msschambach/BaseJS#readme",
+  "homepage": "https://github.com/msschambach/kangajs#readme",
   "devDependencies": {
     "@types/node": "^14.11.1",
     "fork-ts-checker-webpack-plugin": "^5.1.0",

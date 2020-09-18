@@ -68,7 +68,7 @@ This returns the record identified by ```key```. It returns a ```Record``` Objec
 will be shown a bit later. Analogous to ```Storage.getItem()```. For example:
 
 ```js
-var user = $store.find('user'); // Record {name: "user", data: Object, $db: window.Base, toString: function, save: function…}
+var user = $store.find('user'); // Record {name: "user", data: Object, $storage: Storage, toString: function, save: function…}
 
 console.log(user.data.name): // James Bond
 ```

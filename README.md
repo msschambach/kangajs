@@ -212,6 +212,6 @@ The name of the record. Corresponds to the key of the record.
 
 A reference to the storage being used.
 
-Copyright 2014 - 2020 Schambach Milimu <msshambach@hotmail.com>
+Copyright Schambach Milimu
 
 _Refer to LICENSE_

@@ -7,11 +7,13 @@ export default {
   input: path.join(__dirname, 'src/index.ts'),
   output: [
     {
-      file: path.join(__dirname, 'dist/kanga.js'),
-      format: 'cjs',
+      dir: path.join(__dirname, 'dist'),
+      entryFileNames: '[name].js',
+      format: 'esm',
     },
     {
-      file: path.join(__dirname, 'dist/kanga.min.js'),
+      dir: path.join(__dirname, 'dist'),
+      entryFileNames: 'kanga.web.min.js',
       format: 'iife',
       name: 'Kanga',
       sourcemap: true,
@@ -19,7 +21,11 @@ export default {
   ],
   plugins: [
     commonjs(),
-    typescript(),
+    typescript({
+      // This is hacky and just there so that we can generate .d.ts files.
+      // Reference: https://github.com/rollup/plugins/issues/243#issuecomment-595964778
+      rootDir: 'src'
+    }),
     terser({
       compress: {
         pure_getters: true,

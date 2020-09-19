@@ -2,7 +2,8 @@
   "name": "@msschambach/kangajs",
   "version": "1.0.0",
   "description": "A light wrapper for the Web Storage API.",
-  "main": "dist/kanga.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
     "start": "sirv .",
@@ -12,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/msschambach/kangajs.git"
   },
-  "author": "Schambach Milimu<msschambach@hotmail.com>",
+  "author": "Schambach Milimu",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/msschambach/kangajs/issues"

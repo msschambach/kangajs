@@ -1,0 +1,14 @@
+{
+  "all": true,
+  "check-coverage": true,
+  "extension": [".ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"
+  ],
+  "reporter": "lcov"
+}

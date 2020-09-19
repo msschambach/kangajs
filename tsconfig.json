@@ -1,0 +1,21 @@
+{
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": "src",
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "target": "ES6",
+    "lib": ["DOM", "ES6"],
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "allowJs": true
+  }
+}

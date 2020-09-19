@@ -4,3 +4,7 @@ node_modules
 
 coverage
 .nyc_output
+
+dist/src
+dist/test
+dist/rollup.*

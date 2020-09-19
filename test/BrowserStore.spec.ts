@@ -10,8 +10,8 @@ chai.use(sinonChai);
 
 afterEach(() => {
   localStorage.clear();
-})
-describe('BrowserStore test', () => {
+});
+describe('BrowserStore.ts', () => {
   it('mode=localStorage no arguments passed to constructor', () => {
     const store = new BrowserStore();
     expect(store.mode).equal("localStorage");
@@ -136,6 +136,14 @@ describe('BrowserStore test', () => {
     // Finding as a non record
     retrieved = store.findAt(0, false);
     expect(retrieved).equal(JSON.stringify(count));
+
+    // Finding non-existent record as record
+    retrieved = store.findAt(75);
+    expect(retrieved).equal(null);
+
+    // Finding non-existent record as non record
+    retrieved = store.findAt(100, false);
+    expect(retrieved).equal(null);
   });
 
   it('should correctly find index or record with given name/key', () => {
@@ -175,6 +183,10 @@ describe('BrowserStore test', () => {
 
     expect(console.log).called;
     expect(console.log).calledWithExactly(JSON.stringify(weekdays));
+
+    store.log('nonExistentRecord');
+    expect(console.log).called;
+    expect(console.log).calledWithExactly(undefined);
   });
 
 });

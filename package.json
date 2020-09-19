@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rollup -c",
     "start": "sirv .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -require jsdom-global/register --require mock-local-storage --require ts-node/register",
+    "test:coverage": "nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -21,12 +22,26 @@
   },
   "homepage": "https://github.com/msschambach/kangajs#readme",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.10.4",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^8.0.3",
     "@types/node": "^14.11.1",
+    "@types/sinon": "^9.0.5",
+    "@types/sinon-chai": "^3.2.4",
+    "chai": "^4.2.0",
+    "jsdom": "16.4.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^8.1.3",
+    "mock-local-storage": "^1.1.15",
+    "nyc": "^15.1.0",
     "rollup": "^2.27.1",
     "rollup-plugin-terser": "^7.0.2",
+    "sinon": "^9.0.3",
+    "sinon-chai": "^3.5.0",
     "sirv-cli": "^1.0.6",
+    "ts-node": "^9.0.0",
     "tslib": "^2.0.1",
     "typescript": "^4.0.2"
   }

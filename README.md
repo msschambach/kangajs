@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/msschambach/kangajs.svg?branch=master)](https://travis-ci.com/msschambach/kangajs)
+
 Kanga JS
 ======
 

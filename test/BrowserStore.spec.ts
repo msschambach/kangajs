@@ -163,11 +163,11 @@ describe('BrowserStore.ts', () => {
   it('parse method should return null when parsing non json value', () => {
     const store = new BrowserStore();
 
-    expect(store.parse('{45}')).equal(null);
+    expect(store.parse('{45}')).equal(undefined);
   });
 
   before(function () {
-    sinon.spy(console, 'log');
+    sinon.spy(console, 'info');
   });
   after(function () {
     sinon.restore();
@@ -179,11 +179,9 @@ describe('BrowserStore.ts', () => {
     store.set('weekdays', weekdays);
     store.log('weekdays');
 
-    expect(console.log).called;
-    expect(console.log).calledWithExactly(JSON.stringify(weekdays));
+    expect(console.info).calledWith(JSON.stringify(weekdays));
 
     store.log('nonExistentRecord');
-    expect(console.log).called;
-    expect(console.log).calledWithExactly();
+    expect(console.info).calledWith();
   });
 });

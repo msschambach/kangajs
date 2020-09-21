@@ -24,7 +24,7 @@ export default {
     typescript({
       // This is hacky and just there so that we can generate .d.ts files.
       // Reference: https://github.com/rollup/plugins/issues/243#issuecomment-595964778
-      rootDir: 'src'
+      rootDir: 'src',
     }),
     terser({
       compress: {
@@ -33,6 +33,6 @@ export default {
         unsafe_comps: true,
         warnings: true,
       },
-    })
-  ]
-}
+    }),
+  ],
+};

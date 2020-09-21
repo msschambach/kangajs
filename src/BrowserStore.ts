@@ -5,7 +5,7 @@ type StorageMode = 'localStorage' | 'sessionStorage';
 class BrowserStore {
   mode: StorageMode;
 
-  private $storage: Storage;
+  private readonly $storage: Storage;
 
   constructor(shouldUseLocalStorage = true) {
     if (shouldUseLocalStorage) {
@@ -21,12 +21,11 @@ class BrowserStore {
     return this.$storage.length;
   }
 
-  parse(value: any): any | null {
+  parse<R>(value: string): R | undefined {
     try {
-      const x = JSON.parse(value);
-      return x;
+      return JSON.parse(value);
     } catch {
-      return null;
+      return;
     }
   }
 
@@ -40,15 +39,14 @@ class BrowserStore {
         data: this.parse(value) || value,
       });
     }
-
     return null;
   }
 
-  findAll(): Record<any>[] {
+  findAll(): Record<unknown>[] {
     const all = [];
 
     for (const x in this.$storage) {
-      const value = this.find<any>(x);
+      const value = this.find<unknown>(x);
       if (value) {
         all.push(value);
       }
@@ -79,7 +77,7 @@ class BrowserStore {
     return;
   }
 
-  set<R>(key: string, value: R | string): void {
+  set<R>(key: string, value: R | string): BrowserStore {
     let record;
 
     if (value instanceof Object && typeof value !== 'string') {
@@ -88,18 +86,21 @@ class BrowserStore {
     } else {
       this.$storage.setItem(key, value as string);
     }
+    return this;
   }
 
-  delete(key: string): void {
+  delete(key: string): BrowserStore {
     this.$storage.removeItem(key);
+    return this;
   }
 
-  deleteAll() {
+  deleteAll(): void {
     this.$storage.clear();
   }
 
-  log(key: string) {
-    console.log(this.find(key)?.toString());
+  log(key: string): BrowserStore {
+    console.info(this.find(key)?.toString());
+    return this;
   }
 }
 

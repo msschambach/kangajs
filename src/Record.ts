@@ -17,19 +17,19 @@ class Record<T> {
     this.$storage = properties.storage;
   }
 
-  toString() {
+  toString(): string {
     // If it's a string just return the string value, otherwise JSON.stringify
     if (
       String.prototype.isPrototypeOf(this.data) ||
       typeof this.data === 'string'
     ) {
-      return this.data;
+      return this.data as string;
     } else {
       return JSON.stringify(this.data);
     }
   }
 
-  save() {
+  save(): Record<T> {
     let record;
 
     if (this.data instanceof Object && typeof this.data !== 'string') {
@@ -38,9 +38,11 @@ class Record<T> {
     } else {
       this.$storage.setItem(this.name, this.data as string);
     }
+
+    return this;
   }
 
-  delete() {
+  delete(): void {
     this.$storage.removeItem(this.name);
   }
 }

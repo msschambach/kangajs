@@ -23,7 +23,8 @@
   },
   "rules": {
     "no-debugger": "off",
-    "no-console": ["error", { "allow": ["warn", "error"] }],
-    "unicorn/filename-case": "off"
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "unicorn/filename-case": "off",
+    "unicorn/no-null": "off"
   }
 }

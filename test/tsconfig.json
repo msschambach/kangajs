@@ -1,8 +1,6 @@
 {
-  "exclude": ["node_modules", "dist", "test"],
   "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "declaration": true,
     "sourceMap": true,
     "removeComments": true,
@@ -16,6 +14,6 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
-    "allowJs": true
+    "allowJs": false
   }
 }

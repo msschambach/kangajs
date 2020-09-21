@@ -1,6 +1,10 @@
 language: node_js
 node_js:
     - lts/*
+before_install:
+  - npm install -g codecov
+after_success:
+  - codecov
 jobs:
     include:
         - stage: test

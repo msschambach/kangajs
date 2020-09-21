@@ -1,3 +1,16 @@
 language: node_js
 node_js:
     - lts/*
+jobs:
+    include:
+        - stage: test
+          name: "Unit Tests"
+          script: npm test
+
+        - stage: coverage
+          name: "Test Coverage"
+          script: npm run test:coverage
+
+        - stage: build
+          name: "Build"
+          script: npm run build

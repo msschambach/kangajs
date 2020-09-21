@@ -8,8 +8,8 @@ declare class Record<T> {
     data: T | string;
     private $storage;
     constructor(properties: RecordProperties<T>);
-    toString(): string | T;
-    save(): void;
+    toString(): string;
+    save(): Record<T>;
     delete(): void;
 }
 export default Record;

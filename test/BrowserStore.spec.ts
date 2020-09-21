@@ -14,12 +14,12 @@ afterEach(() => {
 describe('BrowserStore.ts', () => {
   it('mode=localStorage no arguments passed to constructor', () => {
     const store = new BrowserStore();
-    expect(store.mode).equal("localStorage");
+    expect(store.mode).equal('localStorage');
   });
 
   it('mode=sessionStorage if constructor argument shouldUseLocalStorage=false', () => {
     const store = new BrowserStore(false);
-    expect(store.mode).equal("sessionStorage");
+    expect(store.mode).equal('sessionStorage');
   });
 
   it('should correctly set and get a string value', () => {
@@ -35,7 +35,7 @@ describe('BrowserStore.ts', () => {
 
   it('should correctly set and get an object value', () => {
     const store = new BrowserStore();
-    const user = { name: 'Schambach'};
+    const user = { name: 'Schambach' };
 
     store.set('testUser', user);
     expect(localStorage.getItem('testUser')).equal(JSON.stringify(user));
@@ -46,12 +46,12 @@ describe('BrowserStore.ts', () => {
 
   it('should correctly set and get an array value', () => {
     const store = new BrowserStore();
-    const users= [{ name: 'Schambach'}, { name: 'David'}];
+    const users = [{ name: 'Schambach' }, { name: 'David' }];
 
     store.set('testUsers', users);
     expect(localStorage.getItem('testUsers')).equal(JSON.stringify(users));
 
-    const retrieved= store.find('testUsers');
+    const retrieved = store.find('testUsers');
     expect(retrieved?.data).eql(users);
   });
 
@@ -69,13 +69,12 @@ describe('BrowserStore.ts', () => {
   it('should correctly retrieve all records', () => {
     const store = new BrowserStore();
     const count = 45;
-    const user = { name: 'Schambach'};
+    const user = { name: 'Schambach' };
 
     store.set('testCount', count);
     store.set('testUser', user);
     expect(store.length).equal(2);
     expect(localStorage.length).equal(2);
-
 
     const retrieved = store.findAll();
     expect(retrieved?.length).equal(2);
@@ -86,13 +85,12 @@ describe('BrowserStore.ts', () => {
   it('should clear all records on executing deleteAll method', () => {
     const store = new BrowserStore();
     const count = 45;
-    const user = { name: 'Schambach'};
+    const user = { name: 'Schambach' };
 
     store.set('testCount', count);
     store.set('testUser', user);
     expect(store.length).equal(2);
     expect(localStorage.length).equal(2);
-
 
     store.deleteAll();
     expect(store.length).equal(0);
@@ -102,7 +100,7 @@ describe('BrowserStore.ts', () => {
   it('should delete an existing record on delete method', () => {
     const store = new BrowserStore();
     const count = 45;
-    const user = { name: 'Schambach'};
+    const user = { name: 'Schambach' };
 
     store.set('testCount', count);
     store.set('testUser', user);
@@ -119,7 +117,7 @@ describe('BrowserStore.ts', () => {
   it('should correctly find record at a given index', () => {
     const store = new BrowserStore();
     const count = 45;
-    const user = { name: 'Schambach'};
+    const user = { name: 'Schambach' };
     const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
     store.set('testCount', count);
@@ -149,7 +147,7 @@ describe('BrowserStore.ts', () => {
   it('should correctly find index or record with given name/key', () => {
     const store = new BrowserStore();
     const count = 45;
-    const user = { name: 'Schambach'};
+    const user = { name: 'Schambach' };
     const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
     store.set('testCount', count);
@@ -165,13 +163,13 @@ describe('BrowserStore.ts', () => {
   it('parse method should return null when parsing non json value', () => {
     const store = new BrowserStore();
 
-    expect(store.parse('{45}')).equal(null);
+    expect(store.parse('{45}')).equal(undefined);
   });
 
-  before(function() {
-    sinon.spy(console, 'log');
+  before(function () {
+    sinon.spy(console, 'info');
   });
-  after(function(){
+  after(function () {
     sinon.restore();
   });
   it('should correctly log record', () => {
@@ -181,12 +179,9 @@ describe('BrowserStore.ts', () => {
     store.set('weekdays', weekdays);
     store.log('weekdays');
 
-    expect(console.log).called;
-    expect(console.log).calledWithExactly(JSON.stringify(weekdays));
+    expect(console.info).calledWith(JSON.stringify(weekdays));
 
     store.log('nonExistentRecord');
-    expect(console.log).called;
-    expect(console.log).calledWithExactly(undefined);
+    expect(console.info).calledWith();
   });
-
 });

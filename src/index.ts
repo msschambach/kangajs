@@ -1,2 +1,2 @@
-export  { default as BrowserStore } from './BrowserStore';
-export  { default as Record } from './Record';
+export { default as BrowserStore } from './BrowserStore';
+export { default as Record } from './Record';

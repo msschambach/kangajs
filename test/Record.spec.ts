@@ -13,37 +13,37 @@ afterEach(() => {
 });
 describe('Record.ts', () => {
   it('correctly saves an object record', () => {
-
     expect(localStorage.length).equal(0);
 
     const recordProperties = {
       name: 'test',
       data: { name: 'Schambach' },
-      storage: localStorage
+      storage: localStorage,
     };
 
     const record = new Record(recordProperties);
     record.save();
     expect(localStorage.length).equal(1);
-    expect(localStorage.getItem(recordProperties.name)).equal(JSON.stringify(recordProperties.data));
-
+    expect(localStorage.getItem(recordProperties.name)).equal(
+      JSON.stringify(recordProperties.data)
+    );
   });
 
   it('correctly saves a string record', () => {
-
     expect(localStorage.length).equal(0);
 
     const recordProperties = {
       name: 'test',
       data: 'This is a test',
-      storage: localStorage
+      storage: localStorage,
     };
 
     const record = new Record(recordProperties);
     record.save();
     expect(localStorage.length).equal(1);
-    expect(localStorage.getItem(recordProperties.name)).equal(recordProperties.data);
-
+    expect(localStorage.getItem(recordProperties.name)).equal(
+      recordProperties.data
+    );
   });
 
   it('correctly deletes a record', () => {
@@ -62,7 +62,7 @@ describe('Record.ts', () => {
   });
   after(() => {
     sinon.restore();
-  })
+  });
   it('returns data without parsing if data is string when calling toString', () => {
     const store = new BrowserStore();
 
@@ -74,5 +74,4 @@ describe('Record.ts', () => {
     // JSON.stringify should only be called twice when calling store.set and store.find
     expect(JSON.stringify).callCount(2);
   });
-
 });

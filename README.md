@@ -14,17 +14,28 @@ A light wrapper for the Web Storage API.
 
 ## Installation and Usage
 
-Just download from this page or clone this repository.
+Install from npm
+```
+npm install --save @msschambach/kangajs
+```
 
-After downloading you can include it in your page as shown below:
-
-```js
+To use it directly in browsers just copy `kanga.web.min.js` from the dist folder.
+```html
 <script type="text/javascript" src="kanga.web.min.js"></script>
+```
+
+To use it with a bundler such as webpack or rollup just import it.
+```js
+// Javascript or Typescript
+import { BrowserStore } from '@msschambach/kangajs'
+
+const store = new BrowserStore();
+
 ```
 
 To use the library is simple, just initiate a new BrowserStore object and you're good to go.
 
-```js
+```html
 <script type="text/javascript">
   store = new Kanga.BrowserStore(); // Will use localStorage
 

@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.com/msschambach/kangajs.svg?branch=master)](https://travis-ci.com/msschambach/kangajs)
 
+[![codecov](https://codecov.io/gh/msschambach/kangajs/branch/master/graph/badge.svg)](https://codecov.io/gh/msschambach/kangajs)
+
+
 Kanga JS
 ======
 

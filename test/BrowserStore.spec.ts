@@ -8,7 +8,14 @@ const { expect } = chai;
 
 chai.use(sinonChai);
 
+const storeForTestingCallbacks = new BrowserStore();
+beforeEach(() => {
+  sinon.spy(storeForTestingCallbacks, 'each');
+  sinon.spy(console, 'info');
+});
 afterEach(() => {
+  (storeForTestingCallbacks.each as any).restore();
+  (console.info as any).restore();
   localStorage.clear();
 });
 describe('BrowserStore.ts', () => {
@@ -166,12 +173,6 @@ describe('BrowserStore.ts', () => {
     expect(store.parse('{45}')).equal(undefined);
   });
 
-  before(function () {
-    sinon.spy(console, 'info');
-  });
-  after(function () {
-    sinon.restore();
-  });
   it('should correctly log record', () => {
     const store = new BrowserStore();
     const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
@@ -183,5 +184,30 @@ describe('BrowserStore.ts', () => {
 
     store.log('nonExistentRecord');
     expect(console.info).calledWith();
+  });
+
+  it('should properly iterate through each key with each method', () => {
+    const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+    const count = 45;
+    const user = { name: 'Schambach' };
+
+    storeForTestingCallbacks.set('weekdays', weekdays);
+    storeForTestingCallbacks.set('count', count);
+    storeForTestingCallbacks.set('user', user);
+
+    storeForTestingCallbacks.each((record, key) => {
+      console.info(record.data);
+      console.info(key);
+    });
+
+    expect(storeForTestingCallbacks.each).calledOnce;
+
+    expect(console.info).calledWith(weekdays);
+    expect(console.info).calledWith('weekdays');
+    expect(console.info).calledWith(count);
+    expect(console.info).calledWith('count');
+    expect(console.info).calledWith(user);
+    expect(console.info).calledWith('user');
+    expect(console.info).callCount(6);
   });
 });

@@ -37,7 +37,7 @@ describe('BrowserStore.ts', () => {
     expect(localStorage.getItem('test')).equal(value);
 
     const retrieved = store.find('test');
-    expect(retrieved?.data).equal(value);
+    expect(retrieved?.__data).equal(value);
   });
 
   it('should correctly set and get an object value', () => {
@@ -48,7 +48,23 @@ describe('BrowserStore.ts', () => {
     expect(localStorage.getItem('testUser')).equal(JSON.stringify(user));
 
     const retrieved = store.find('testUser');
-    expect(retrieved?.data).eql(user);
+    expect(retrieved?.__data).eql(user);
+
+    // Should be able to set and get enumerable properties of __data from the record
+    if (retrieved) {
+      // Test Getting the properties
+      const retrievedEnumerableProperties = Object.entries(retrieved);
+
+      expect(true).equal(
+        retrievedEnumerableProperties.some(
+          (item) => item[0] === 'name' && item[1] === 'Schambach'
+        )
+      );
+
+      // Test Setting the properties
+      Object.assign(retrieved, { name: 'NewName'});
+      expect('NewName').equal((retrieved.__data as typeof user).name);
+    }
   });
 
   it('should correctly set and get an array value', () => {
@@ -59,7 +75,7 @@ describe('BrowserStore.ts', () => {
     expect(localStorage.getItem('testUsers')).equal(JSON.stringify(users));
 
     const retrieved = store.find('testUsers');
-    expect(retrieved?.data).eql(users);
+    expect(retrieved?.__data).eql(users);
   });
 
   it('should correctly set a numerical value', () => {
@@ -70,7 +86,7 @@ describe('BrowserStore.ts', () => {
     expect(localStorage.getItem('testCount')).equal(JSON.stringify(count));
 
     const retrieved = store.find('testCount');
-    expect(retrieved?.data).equal(count);
+    expect(retrieved?.__data).equal(count);
   });
 
   it('should correctly retrieve all records', () => {
@@ -85,8 +101,8 @@ describe('BrowserStore.ts', () => {
 
     const retrieved = store.findAll();
     expect(retrieved?.length).equal(2);
-    expect(retrieved[0]?.data).equal(count);
-    expect(retrieved[1]?.data).eql(user);
+    expect(retrieved[0]?.__data).equal(count);
+    expect(retrieved[1]?.__data).eql(user);
   });
 
   it('should clear all records on executing deleteAll method', () => {
@@ -118,7 +134,7 @@ describe('BrowserStore.ts', () => {
     let retrieved = store.find('testUser');
     expect(retrieved).equal(null);
     retrieved = store.find('testCount');
-    expect(retrieved?.data).equal(count);
+    expect(retrieved?.__data).equal(count);
   });
 
   it('should correctly find record at a given index', () => {
@@ -135,8 +151,8 @@ describe('BrowserStore.ts', () => {
     let retrieved = store.findAt(1);
     retrieved = retrieved as Record<typeof user>;
 
-    expect(retrieved?.name).equal('testUser');
-    expect(retrieved?.data).eql(user);
+    expect('testUser').equal(retrieved?.__key);
+    expect(user).eql(retrieved?.__data);
 
     // Finding as a non record
     retrieved = store.findAt(0, false);
@@ -196,7 +212,7 @@ describe('BrowserStore.ts', () => {
     storeForTestingCallbacks.set('user', user);
 
     storeForTestingCallbacks.each((record, key) => {
-      console.info(record.data);
+      console.info(record.__data);
       console.info(key);
     });
 

@@ -5,45 +5,58 @@ interface RecordProperties<T> {
 }
 
 class Record<T> {
-  name: string;
+  readonly __key: string;
 
-  data: T | string;
+  readonly __data: T | string;
 
   private $storage: Storage;
 
   constructor(properties: RecordProperties<T>) {
-    this.name = properties.name;
-    this.data = properties.data;
+    this.__key = properties.name;
+    this.__data = properties.data;
     this.$storage = properties.storage;
+
+    if (this.__data && typeof this.__data !== 'string') {
+      const data = this.__data;
+      for (const property in this.__data) {
+        Object.defineProperty(this, property, {
+          enumerable: true,
+          get: () => data[property],
+          set: (value) => {
+            data[property] = value;
+          },
+        });
+      }
+    }
   }
 
   toString(): string {
     // If it's a string just return the string value, otherwise JSON.stringify
     if (
-      String.prototype.isPrototypeOf(this.data) ||
-      typeof this.data === 'string'
+      String.prototype.isPrototypeOf(this.__data) ||
+      typeof this.__data === 'string'
     ) {
-      return this.data as string;
+      return this.__data as string;
     } else {
-      return JSON.stringify(this.data);
+      return JSON.stringify(this.__data);
     }
   }
 
   save(): Record<T> {
     let record;
 
-    if (this.data instanceof Object && typeof this.data !== 'string') {
-      record = JSON.stringify(this.data);
-      this.$storage.setItem(this.name, record);
+    if (this.__data instanceof Object && typeof this.__data !== 'string') {
+      record = JSON.stringify(this.__data);
+      this.$storage.setItem(this.__key, record);
     } else {
-      this.$storage.setItem(this.name, this.data as string);
+      this.$storage.setItem(this.__key, this.__data as string);
     }
 
     return this;
   }
 
   delete(): void {
-    this.$storage.removeItem(this.name);
+    this.$storage.removeItem(this.__key);
   }
 }
 

@@ -4,8 +4,8 @@ interface RecordProperties<T> {
     storage: Storage;
 }
 declare class Record<T> {
-    name: string;
-    data: T | string;
+    readonly __key: string;
+    readonly __data: T | string;
     private $storage;
     constructor(properties: RecordProperties<T>);
     toString(): string;

@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/msschambach/kangajs.svg?branch=master)](https://travis-ci.com/msschambach/kangajs)
-
 [![codecov](https://codecov.io/gh/msschambach/kangajs/branch/master/graph/badge.svg)](https://codecov.io/gh/msschambach/kangajs)
+[![npm version](http://img.shields.io/npm/v/@msschambach/kangajs.svg?style=flat)](https://npmjs.org/package/@msschambach/kangajs "View this project on npm")
 
 
 Kanga JS

@@ -62,7 +62,7 @@ describe('BrowserStore.ts', () => {
       );
 
       // Test Setting the properties
-      Object.assign(retrieved, { name: 'NewName'});
+      Object.assign(retrieved, { name: 'NewName' });
       expect('NewName').equal((retrieved.__data as typeof user).name);
     }
   });

@@ -7,6 +7,10 @@ after_success:
   - codecov
 jobs:
     include:
+        - stage: lint
+          name: "Check Linting"
+          script: npm run lint
+
         - stage: test
           name: "Unit Tests"
           script: npm test

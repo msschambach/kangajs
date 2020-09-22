@@ -40,33 +40,6 @@ describe('BrowserStore.ts', () => {
     expect(retrieved?.__data).equal(value);
   });
 
-  it('should correctly set and get an object value', () => {
-    const store = new BrowserStore();
-    const user = { name: 'Schambach' };
-
-    store.set('testUser', user);
-    expect(localStorage.getItem('testUser')).equal(JSON.stringify(user));
-
-    const retrieved = store.find('testUser');
-    expect(retrieved?.__data).eql(user);
-
-    // Should be able to set and get enumerable properties of __data from the record
-    if (retrieved) {
-      // Test Getting the properties
-      const retrievedEnumerableProperties = Object.entries(retrieved);
-
-      expect(true).equal(
-        retrievedEnumerableProperties.some(
-          (item) => item[0] === 'name' && item[1] === 'Schambach'
-        )
-      );
-
-      // Test Setting the properties
-      Object.assign(retrieved, { name: 'NewName' });
-      expect('NewName').equal((retrieved.__data as typeof user).name);
-    }
-  });
-
   it('should correctly set and get an array value', () => {
     const store = new BrowserStore();
     const users = [{ name: 'Schambach' }, { name: 'David' }];

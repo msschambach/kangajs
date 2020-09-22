@@ -4,7 +4,7 @@ interface RecordProperties<T> {
   storage: Storage;
 }
 
-class Record<T> {
+class RecordBase<T> {
   readonly __key: string;
 
   readonly __data: T | string;
@@ -15,19 +15,6 @@ class Record<T> {
     this.__key = properties.name;
     this.__data = properties.data;
     this.$storage = properties.storage;
-
-    if (this.__data && typeof this.__data !== 'string') {
-      const data = this.__data;
-      for (const property in this.__data) {
-        Object.defineProperty(this, property, {
-          enumerable: true,
-          get: () => data[property],
-          set: (value) => {
-            data[property] = value;
-          },
-        });
-      }
-    }
   }
 
   toString(): string {
@@ -57,6 +44,40 @@ class Record<T> {
 
   delete(): void {
     this.$storage.removeItem(this.__key);
+  }
+}
+
+class Record<T> extends RecordBase<T> {
+  constructor(properties: RecordProperties<T>) {
+    super(properties);
+    return new Proxy(this, {
+      get(target: RecordBase<T>, p: PropertyKey, receiver: any): any {
+        if (
+          !Object.getPrototypeOf(target)?.[p] &&
+          !target.hasOwnProperty(p) &&
+          typeof target.__data === 'object' &&
+          !['__key', '__data'].includes(p as string)
+        ) {
+          return Reflect.get((target as any).__data, p, receiver);
+        }
+        return Reflect.get(target, p, receiver);
+      },
+      set(
+        target: RecordBase<any>,
+        p: PropertyKey,
+        value: any,
+        receiver: any
+      ): boolean {
+        if (
+          !Object.getPrototypeOf(target)?.[p] &&
+          !target.hasOwnProperty(p) &&
+          !['__key', '__data'].includes(p as string)
+        ) {
+          return Reflect.set(target.__data, p, value, target.__data);
+        }
+        return Reflect.set(target, p, value, receiver);
+      },
+    });
   }
 }
 

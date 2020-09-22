@@ -97,6 +97,16 @@ Returns all records in storage as an array of ```Record``` objects. For example:
 console.log(store.findAll()); // [Record, Record]
 ```
 
+### .each((record: Record, key: string) => void)
+Allows you to perform actions while iterating through all the records in the store. For example: 
+
+```js
+store.each((record) => {
+  record.data.updated = new Date();
+  record.save();
+});
+```
+
 ### .findAt(index,[get_value])
 
 Returns the record at ```index``` in storage. Analogous to ```Storage.key()```.

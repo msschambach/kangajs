@@ -6,6 +6,7 @@ declare class BrowserStore {
     constructor(shouldUseLocalStorage?: boolean);
     get length(): number;
     parse<R>(value: string): R | undefined;
+    each(callback: (record: Record<unknown>, key: string) => void): void;
     find<R>(key: string): Record<R> | null;
     findAll(): Record<unknown>[];
     findAt<R>(index: number, returnAsRecord?: boolean): Record<R> | string | null;

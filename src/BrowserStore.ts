@@ -29,6 +29,15 @@ class BrowserStore {
     }
   }
 
+  each(callback: (record: Record<unknown>, key: string) => void): void {
+    for (const key in this.$storage) {
+      const record = this.find(key);
+      if (record) {
+        callback(record, key);
+      }
+    }
+  }
+
   find<R>(key: string): Record<R> | null {
     const value = this.$storage.getItem(key);
 

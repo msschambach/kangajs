@@ -16,8 +16,8 @@ declare class RecordBase<T = any> {
     delete(): void;
 }
 interface Record<T = any> {
-    __key: string;
-    __data: T | RecordData | string;
+    readonly __key: string;
+    readonly __data: T | RecordData | string;
     [x: string]: any;
 }
 declare class Record<T = any> extends RecordBase<T> {

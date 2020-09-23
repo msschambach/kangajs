@@ -52,6 +52,11 @@ describe('BrowserStore.ts', () => {
 
       retrieved.bar = 'foo';
       expect('foo').equal((retrieved.__data as RecordData).bar);
+
+      // Test setting property directly in __data
+      (retrieved.__data as RecordData).hello = 'Hello';
+
+      expect('Hello').equal((retrieved.__data as RecordData).hello);
     }
   });
 

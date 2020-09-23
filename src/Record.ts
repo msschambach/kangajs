@@ -52,8 +52,8 @@ class RecordBase<T = any> {
 }
 
 interface Record<T = any> {
-  __key: string;
-  __data: T | RecordData | string;
+  readonly __key: string;
+  readonly __data: T | RecordData | string;
   [x: string]: any;
 }
 

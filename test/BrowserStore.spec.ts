@@ -2,6 +2,7 @@ import * as chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import { BrowserStore, Record } from '../src';
+import { RecordData } from '../src/Record';
 
 const { localStorage } = window;
 const { expect } = chai;
@@ -27,6 +28,31 @@ describe('BrowserStore.ts', () => {
   it('mode=sessionStorage if constructor argument shouldUseLocalStorage=false', () => {
     const store = new BrowserStore(false);
     expect(store.mode).equal('sessionStorage');
+  });
+
+  it('should correctly set and get an object value', () => {
+    const store = new BrowserStore();
+    const user = { name: 'Schambach' };
+
+    store.set('testUser', user);
+    expect(localStorage.getItem('testUser')).equal(JSON.stringify(user));
+
+    const retrieved = store.find<typeof user>('testUser');
+    expect(retrieved?.__data).eql(user);
+
+    // Should be able to set and get enumerable properties of __data from the record
+    if (retrieved) {
+      // Test Getting the properties
+      expect(retrieved.name).equal('Schambach');
+      expect(retrieved.foo).equal(undefined);
+
+      // Test Setting the properties
+      retrieved.name = 'NewName';
+      expect('NewName').equal((retrieved.__data as RecordData).name);
+
+      retrieved.bar = 'foo';
+      expect('foo').equal((retrieved.__data as RecordData).bar);
+    }
   });
 
   it('should correctly set and get a string value', () => {

@@ -1,18 +1,22 @@
-interface RecordProperties<T> {
-  name: string;
-  data: T | string;
+export interface RecordData {
+  [x: string]: any;
+}
+
+export interface RecordProperties<T = any> {
+  key: string;
+  data: T | RecordData | string;
   storage: Storage;
 }
 
-class RecordBase<T> {
+class RecordBase<T = any> {
   readonly __key: string;
 
-  readonly __data: T | string;
+  readonly __data: T | RecordData | string;
 
   private $storage: Storage;
 
   constructor(properties: RecordProperties<T>) {
-    this.__key = properties.name;
+    this.__key = properties.key;
     this.__data = properties.data;
     this.$storage = properties.storage;
   }
@@ -29,7 +33,7 @@ class RecordBase<T> {
     }
   }
 
-  save(): Record<T> {
+  save(): RecordBase<T> {
     let record;
 
     if (this.__data instanceof Object && typeof this.__data !== 'string') {
@@ -47,7 +51,13 @@ class RecordBase<T> {
   }
 }
 
-class Record<T> extends RecordBase<T> {
+interface Record<T = any> {
+  __key: string;
+  __data: T | RecordData | string;
+  [x: string]: any;
+}
+
+class Record<T = any> extends RecordBase<T> {
   constructor(properties: RecordProperties<T>) {
     super(properties);
     return new Proxy(this, {

@@ -16,7 +16,7 @@ describe('Record.ts', () => {
     expect(localStorage.length).equal(0);
 
     const recordProperties = {
-      name: 'test',
+      key: 'test',
       data: { name: 'Schambach' },
       storage: localStorage,
     };
@@ -24,7 +24,7 @@ describe('Record.ts', () => {
     const record = new Record(recordProperties);
     record.save();
     expect(localStorage.length).equal(1);
-    expect(localStorage.getItem(recordProperties.name)).equal(
+    expect(localStorage.getItem(recordProperties.key)).equal(
       JSON.stringify(recordProperties.data)
     );
   });
@@ -33,7 +33,7 @@ describe('Record.ts', () => {
     expect(localStorage.length).equal(0);
 
     const recordProperties = {
-      name: 'test',
+      key: 'test',
       data: 'This is a test',
       storage: localStorage,
     };
@@ -41,7 +41,7 @@ describe('Record.ts', () => {
     const record = new Record(recordProperties);
     record.save();
     expect(localStorage.length).equal(1);
-    expect(localStorage.getItem(recordProperties.name)).equal(
+    expect(localStorage.getItem(recordProperties.key)).equal(
       recordProperties.data
     );
   });

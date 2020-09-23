@@ -44,7 +44,7 @@ class BrowserStore {
     if (value) {
       return new Record<R>({
         storage: this.$storage,
-        name: key,
+        key,
         data: this.parse(value) || value,
       });
     }

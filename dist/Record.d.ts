@@ -1,18 +1,26 @@
-interface RecordProperties<T> {
-    name: string;
-    data: T | string;
+export interface RecordData {
+    [x: string]: any;
+}
+export interface RecordProperties<T = any> {
+    key: string;
+    data: T | RecordData | string;
     storage: Storage;
 }
-declare class RecordBase<T> {
+declare class RecordBase<T = any> {
     readonly __key: string;
-    readonly __data: T | string;
+    readonly __data: T | RecordData | string;
     private $storage;
     constructor(properties: RecordProperties<T>);
     toString(): string;
-    save(): Record<T>;
+    save(): RecordBase<T>;
     delete(): void;
 }
-declare class Record<T> extends RecordBase<T> {
+interface Record<T = any> {
+    __key: string;
+    __data: T | RecordData | string;
+    [x: string]: any;
+}
+declare class Record<T = any> extends RecordBase<T> {
     constructor(properties: RecordProperties<T>);
 }
 export default Record;

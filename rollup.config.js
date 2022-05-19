@@ -10,6 +10,7 @@ export default {
       dir: path.join(__dirname, 'dist'),
       entryFileNames: '[name].js',
       format: 'esm',
+      sourcemap: true,
     },
     {
       dir: path.join(__dirname, 'dist'),
@@ -25,6 +26,7 @@ export default {
       // This is hacky and just there so that we can generate .d.ts files.
       // Reference: https://github.com/rollup/plugins/issues/243#issuecomment-595964778
       rootDir: 'src',
+      sourceMap: true,
     }),
     terser({
       compress: {

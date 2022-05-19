@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import { BrowserStore, Record } from '../src';
 
@@ -41,9 +41,7 @@ describe('Record.ts', () => {
     const record = new Record(recordProperties);
     record.save();
     expect(localStorage.length).equal(1);
-    expect(localStorage.getItem(recordProperties.name)).equal(
-      recordProperties.data
-    );
+    expect(localStorage.getItem(recordProperties.name)).equal(recordProperties.data);
   });
 
   it('correctly deletes a record', () => {

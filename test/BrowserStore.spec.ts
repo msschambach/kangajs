@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as sinon from 'sinon';
+import { spy, restore } from 'sinon';
 import sinonChai from 'sinon-chai';
 import { BrowserStore, Record } from '../src';
 
@@ -10,11 +10,11 @@ chai.use(sinonChai);
 
 const storeForTestingCallbacks = new BrowserStore();
 beforeEach(() => {
-  sinon.spy(storeForTestingCallbacks, 'each');
-  sinon.spy(console, 'info');
+  spy(storeForTestingCallbacks, 'each');
+  spy(console, 'info');
 });
 afterEach(() => {
-  sinon.restore();
+  restore();
   localStorage.clear();
 });
 describe('BrowserStore.ts', () => {

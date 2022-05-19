@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as sinon from 'sinon';
+import { spy } from 'sinon';
 import sinonChai from 'sinon-chai';
 import { BrowserStore, Record } from '../src';
 
@@ -55,13 +55,8 @@ describe('Record.ts', () => {
     expect(localStorage.length).equal(0);
   });
 
-  before(() => {
-    sinon.spy(JSON, 'stringify');
-  });
-  after(() => {
-    sinon.restore();
-  });
   it('returns data without parsing if data is string when calling toString', () => {
+    const JSONStringigySpy = spy(JSON, 'stringify');
     const store = new BrowserStore();
 
     store.set('test', 'This is cool.');
@@ -69,7 +64,9 @@ describe('Record.ts', () => {
 
     const record = store.find('test');
     expect(record?.toString()).equal('This is cool.');
-    // JSON.stringify should only be called twice when calling store.set and store.find
-    expect(JSON.stringify).callCount(2);
+    // JSON.stringify should not be called when calling store.set and store.find since data is already as string
+    expect(JSONStringigySpy).callCount(0);
+
+    JSONStringigySpy.restore();
   });
 });

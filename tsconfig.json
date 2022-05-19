@@ -1,8 +1,8 @@
 {
   "exclude": ["node_modules", "dist", "test"],
   "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": "src",
+    "outDir": "./dist",
+    "baseUrl": "./src",
     "declaration": true,
     "sourceMap": true,
     "removeComments": true,

@@ -19,14 +19,9 @@ class Record<T> {
 
   toString(): string {
     // If it's a string just return the string value, otherwise JSON.stringify
-    if (
-      String.prototype.isPrototypeOf(this.data) ||
-      typeof this.data === 'string'
-    ) {
-      return this.data as string;
-    } else {
-      return JSON.stringify(this.data);
-    }
+    return Object.prototype.isPrototypeOf.call(String, this.data) || typeof this.data === 'string'
+      ? (this.data as string)
+      : JSON.stringify(this.data);
   }
 
   save(): Record<T> {

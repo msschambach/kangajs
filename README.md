@@ -1,39 +1,39 @@
 [![Build Status](https://travis-ci.com/msschambach/kangajs.svg?branch=master)](https://travis-ci.com/msschambach/kangajs)
 [![codecov](https://codecov.io/gh/msschambach/kangajs/branch/master/graph/badge.svg)](https://codecov.io/gh/msschambach/kangajs)
-[![npm version](http://img.shields.io/npm/v/@msschambach/kangajs.svg?style=flat)](https://npmjs.org/package/@msschambach/kangajs "View this project on npm")
+[![npm version](http://img.shields.io/npm/v/@msschambach/kangajs.svg?style=flat)](https://npmjs.org/package/@msschambach/kangajs 'View this project on npm')
 
-
-Kanga JS
-======
+# Kanga JS
 
 A light wrapper for the Web Storage API.
 
 ## Features
 
-* Interfaces with the DOM localStorage and sessionStorage objects
-* Supports storage of Objects and Arrays
-* Is library agnostic, meaning it can work with all the big JavaScript client side frameworks
-* Light weight and easy to use
+- Interfaces with the DOM localStorage and sessionStorage objects
+- Supports storage of Objects and Arrays
+- Is library agnostic, meaning it can work with all the big JavaScript client side frameworks
+- Light weight and easy to use
 
 ## Installation and Usage
 
 Install from npm
+
 ```
 npm install --save @msschambach/kangajs
 ```
 
 To use it directly in browsers just copy `kanga.web.min.js` from the dist folder.
+
 ```html
 <script type="text/javascript" src="kanga.web.min.js"></script>
 ```
 
 To use it with a bundler such as webpack or rollup just import it.
+
 ```js
 // Javascript or Typescript
-import { BrowserStore } from '@msschambach/kangajs'
+import { BrowserStore } from '@msschambach/kangajs';
 
 const store = new BrowserStore();
-
 ```
 
 To use the library is simple, just initiate a new BrowserStore object and you're good to go.
@@ -44,7 +44,7 @@ To use the library is simple, just initiate a new BrowserStore object and you're
 
   store2 = new Kanga.BrowserStore(false); // Will use sessionStorage
 
-  store.set('user',{name:'James Bond', email:'bond007@live.com', bio:'I spy for a living.'});
+  store.set('user', { name: 'James Bond', email: 'bond007@live.com', bio: 'I spy for a living.' });
 
   store.log('user'); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."}
 </script>
@@ -60,28 +60,28 @@ A new BrowserStore instance can be instantiated as shown below:
 const store = new Kanga.BrowserStore()();
 ```
 
-The constructor accepts one optional boolean paremeter which if set to ```true```
+The constructor accepts one optional boolean paremeter which if set to `true`
 will instantiate an instance that maps to the localStorage object and if ignored
-or set to ```false``` it will instantiate an instance mapping to the sessionStorage
+or set to `false` it will instantiate an instance mapping to the sessionStorage
 object.
 
 ### .set(key, value)
 
-Sets a key to a given value in storage. Analogous to ```Storage.setItem()```.
+Sets a key to a given value in storage. Analogous to `Storage.setItem()`.
 For example:
 
 ```js
-store.set('user',{name:'James Bond', email:'bond007@live.com', bio:'I spy for a living.'});
+store.set('user', { name: 'James Bond', email: 'bond007@live.com', bio: 'I spy for a living.' });
 
 store.set('visit_count', 4);
 
-store.set('browser','mozilla');
+store.set('browser', 'mozilla');
 ```
 
 ### .find(key)
 
-This returns the record identified by ```key```. It returns a ```Record``` Object, which
-will be shown a bit later. Analogous to ```Storage.getItem()```. For example:
+This returns the record identified by `key`. It returns a `Record` Object, which
+will be shown a bit later. Analogous to `Storage.getItem()`. For example:
 
 ```js
 var user = store.find('user'); // Record {name: "user", data: Object, $storage: Storage, toString: function, save: function…}
@@ -91,14 +91,15 @@ console.log(user.data.name): // James Bond
 
 ### .findAll()
 
-Returns all records in storage as an array of ```Record``` objects. For example:
+Returns all records in storage as an array of `Record` objects. For example:
 
 ```js
 console.log(store.findAll()); // [Record, Record]
 ```
 
 ### .each((record: Record, key: string) => void)
-Allows you to perform actions while iterating through all the records in the store. For example: 
+
+Allows you to perform actions while iterating through all the records in the store. For example:
 
 ```js
 store.each((record) => {
@@ -109,7 +110,7 @@ store.each((record) => {
 
 ### .findAt(index,[get_value])
 
-Returns the record at ```index``` in storage. Analogous to ```Storage.key()```.
+Returns the record at `index` in storage. Analogous to `Storage.key()`.
 
 Has an optional trailing parameter which if set to true will make the function return
 the actual value of the key.
@@ -118,7 +119,7 @@ For example:
 ```js
 console.log(store.findAt(1)); // visit_count
 
-console.log(store.findAt(1,true)); // 4
+console.log(store.findAt(1, true)); // 4
 ```
 
 ### .indexOf(key)
@@ -131,7 +132,7 @@ console.log(store.indexOf('visit_count')); // 1
 
 ### .delete(key)
 
-Removes a key from storage. Analogous to ```Storage.removeItem```. For example:
+Removes a key from storage. Analogous to `Storage.removeItem`. For example:
 
 ```js
 store.delete('user');
@@ -141,7 +142,7 @@ console.log(store.find('user')); // null
 
 ### .deleteAll()
 
-Removes all keys from the storage. Analogous to ```Storage.clear()```. For example:
+Removes all keys from the storage. Analogous to `Storage.clear()`. For example:
 
 ```js
 store.deleteAll();
@@ -151,7 +152,7 @@ console.log(store.findAll()); // []
 
 ### .deleteAt(index)
 
-Removes a key at ```index``` in storage. For example:
+Removes a key at `index` in storage. For example:
 
 ```js
 store.deleteAt(0);
@@ -161,7 +162,7 @@ console.log(store.findAt(0)); // null
 
 ### .log(key)
 
-Logs the value of ```key``` to the console. For example:
+Logs the value of `key` to the console. For example:
 
 ```js
 store.log('user'); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."}
@@ -175,16 +176,15 @@ The current operation mode, i.e. whether data is being stored in localStorage or
 console.log(store.mode); // sessionStorage
 ```
 
-
 ### Record
 
-```.find()``` ```.findAll()``` and ```.findAt()``` all return either a single or an array of ```Record``` objects.
+`.find()` `.findAll()` and `.findAt()` all return either a single or an array of `Record` objects.
 
 These objects have the following API
 
 #### .toString()
 
-Produces a string value of the ```data```. For example:
+Produces a string value of the `data`. For example:
 
 ```js
 var user = store.find('user');
@@ -201,14 +201,13 @@ var user = store.find('user');
 
 console.log(user.toString()); // {"name":"James Bond","email":"bond007@live.com","bio":"I spy for a living."}
 
-user.data.name = "Jason Statham";
-user.data.email = "js@gunsblazing.com";
-user.data.bio = "I got moves.";
+user.data.name = 'Jason Statham';
+user.data.email = 'js@gunsblazing.com';
+user.data.bio = 'I got moves.';
 
 user.save();
 
 console.log(store.find('user').toString()); // {"name":"Jason Statham","email":"s@gunsblazing.com","bio":"I got moves."}
-
 ```
 
 #### .delete()
@@ -223,7 +222,6 @@ console.log(user.toString()); // {"name":"James Bond","email":"bond007@live.com"
 user.delete();
 
 console.log(store.find('user').toString()); // null
-
 ```
 
 #### .data
@@ -234,7 +232,7 @@ The value of the record. Usage is shown in the examples above.
 
 The name of the record. Corresponds to the key of the record.
 
-#### .$storage
+#### .\$storage
 
 A reference to the storage being used.
 

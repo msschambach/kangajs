@@ -1,19 +1,21 @@
 {
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "unicorn" ,
-    "import"
-  ],
+  "plugins": ["@typescript-eslint", "unicorn", "import"],
   "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:unicorn/recommended",
-    "plugin:prettier/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
+    "plugin:import/recommended"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2022,
     "sourceType": "module"
   },
   "env": {
@@ -22,7 +24,6 @@
     "node": true
   },
   "rules": {
-    "no-debugger": "off",
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
     "unicorn/filename-case": "off",
     "unicorn/no-null": "off"

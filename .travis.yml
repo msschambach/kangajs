@@ -1,20 +1,24 @@
 language: node_js
 node_js:
-    - lts/*
+  - lts/*
 before_install:
   - npm install -g codecov
 after_success:
   - codecov
 jobs:
-    include:
-        - stage: test
-          name: "Unit Tests"
-          script: npm test
+  include:
+    - state: validate
+      name: 'Validate code formatting, compilation and code style'
+      script: npm run validate:ci
 
-        - stage: coverage
-          name: "Test Coverage"
-          script: npm run test:coverage
+    - stage: test
+      name: 'Unit Tests'
+      script: npm test
 
-        - stage: build
-          name: "Build"
-          script: npm run build
+    - stage: coverage
+      name: 'Test Coverage'
+      script: npm run test:coverage
+
+    - stage: build
+      name: 'Build'
+      script: npm run build
